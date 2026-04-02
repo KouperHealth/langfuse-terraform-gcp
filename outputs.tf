@@ -19,3 +19,8 @@ output "cluster_token" {
   value       = data.google_client_config.current.access_token
   sensitive   = true
 }
+
+output "ee_key_secret_name" {
+  description = "Name of the GCP Secret Manager secret containing the enterprise encryption key"
+  value       = google_secret_manager_secret.ee_key.secret_id
+}

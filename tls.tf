@@ -23,4 +23,8 @@ resource "kubernetes_manifest" "https_redirect" {
       }
     }
   }
+
+  depends_on = [
+    google_container_cluster.this
+  ]
 }

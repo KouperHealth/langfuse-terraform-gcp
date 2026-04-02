@@ -185,5 +185,5 @@ resource "helm_release" "langfuse" {
     google_service_account.langfuse,
   ]
 
-  timeout = 1800 # Increase timeout to 15 minutes
+  timeout = 3600 # 30 minutes - ClickHouse deployment can take time
 }

@@ -1,3 +1,14 @@
+variable "project_id" {
+  description = "GCP Project ID"
+  type        = string
+}
+
+variable "region" {
+  description = "GCP region"
+  type        = string
+  default     = "us-central1"
+}
+
 variable "name" {
   description = "Name to use for or prefix resources with"
   type        = string

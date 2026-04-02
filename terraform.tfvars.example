@@ -1,0 +1,24 @@
+# GCP Project Configuration
+project_id = "ringed-cell-357023"
+region     = "us-central1"
+
+# Langfuse Configuration
+domain = "langfuse.kouperhealth.com"
+name   = "primus-langfuse"
+
+# Kubernetes Configuration
+kubernetes_namespace = "primus-langfuse"
+subnetwork_cidr      = "10.0.0.0/16"
+
+# Database Configuration
+database_instance_tier              = "db-perf-optimized-N-2"
+database_instance_availability_type = "REGIONAL"
+database_instance_edition           = "ENTERPRISE_PLUS"
+
+# Cache Configuration
+cache_tier           = "STANDARD_HA"
+cache_memory_size_gb = 1
+
+# Langfuse Helm Chart
+langfuse_chart_version = "1.5.14"
+
