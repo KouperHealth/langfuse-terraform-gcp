@@ -187,6 +187,37 @@ Adjust database and cache resources in `terraform.tfvars`:
 - `database_instance_availability_type`: ZONAL or REGIONAL
 - `cache_memory_size_gb`: Redis memory size
 
+## Updating Secrets
+
+If you need to update secrets (e.g., enterprise license key, API keys) after deployment:
+
+1. **Update the secret in GCP Secret Manager or Kubernetes:**
+   ```bash
+   # For GCP Secret Manager secrets
+   gcloud secrets versions add <secret-name> --data-file=<path-to-file>
+   
+   # For Kubernetes secrets
+   kubectl edit secret langfuse -n <namespace>
+   ```
+
+2. **Restart the Langfuse services to pick up the new secret:**
+   ```bash
+   # Restart web deployment
+   kubectl rollout restart deployment langfuse-web -n <namespace>
+   
+   # Restart worker deployment
+   kubectl rollout restart deployment langfuse-worker -n <namespace>
+   ```
+
+3. **Monitor the rollout status:**
+   ```bash
+   kubectl rollout status deployment langfuse-web -n <namespace>
+   kubectl rollout status deployment langfuse-worker -n <namespace>
+   kubectl get pods -n <namespace>
+   ```
+
+Replace `<namespace>` with your Kubernetes namespace (e.g., `primus-langfuse`).
+
 ## Support
 
 For issues specific to this Terraform module, check the main README.md.
