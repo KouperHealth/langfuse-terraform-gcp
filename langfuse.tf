@@ -88,6 +88,7 @@ langfuse:
     className: gce  # Ignored in GCP but required from K8s
     annotations:
       kubernetes.io/ingress.class: gce
+      kubernetes.io/ingress.global-static-ip-name: ${google_compute_global_address.ingress.name}
       ingress.gcp.kubernetes.io/pre-shared-cert: ${var.name}
       networking.gke.io/v1beta1.FrontendConfig: https-redirect
     hosts:
