@@ -129,6 +129,15 @@ variable "additional_env" {
   }
 }
 
+variable "master_authorized_networks" {
+  description = "List of CIDR blocks authorized to access the Kubernetes master endpoint. An empty list blocks all public access. Include your VPC subnet CIDR to allow in-cluster access."
+  type = list(object({
+    cidr_block   = string
+    display_name = optional(string, "")
+  }))
+  default = []
+}
+
 variable "create_dns_zone" {
   description = "Whether to create a Google Cloud DNS managed zone. Set to `false` if you manage DNS externally."
   type        = bool

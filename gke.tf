@@ -13,5 +13,15 @@ resource "google_container_cluster" "this" {
   network         = google_compute_network.this.name
   subnetwork      = google_compute_subnetwork.this.name
 
+  master_authorized_networks_config {
+    dynamic "cidr_blocks" {
+      for_each = var.master_authorized_networks
+      content {
+        cidr_block   = cidr_blocks.value.cidr_block
+        display_name = cidr_blocks.value.display_name
+      }
+    }
+  }
+
   deletion_protection = var.deletion_protection
 }

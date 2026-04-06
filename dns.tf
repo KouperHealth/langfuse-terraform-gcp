@@ -4,6 +4,10 @@ resource "google_dns_managed_zone" "this" {
   name        = replace(var.domain, ".", "-")
   dns_name    = "${var.domain}."
   description = "DNS zone for Langfuse domain"
+
+  dnssec_config {
+    state = "on"
+  }
 }
 
 # Get the load balancer IP
