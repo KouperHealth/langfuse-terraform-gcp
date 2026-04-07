@@ -181,6 +181,40 @@ resource "helm_release" "langfuse" {
     local.encryption_values,
   ], var.additional_helm_values)
 
+  # Increase probe tolerances — Next.js needs time to fully start before serving health checks
+  set {
+    name  = "langfuse.web.livenessProbe.initialDelaySeconds"
+    value = "120"
+  }
+  set {
+    name  = "langfuse.web.livenessProbe.periodSeconds"
+    value = "30"
+  }
+  set {
+    name  = "langfuse.web.livenessProbe.timeoutSeconds"
+    value = "30"
+  }
+  set {
+    name  = "langfuse.web.livenessProbe.failureThreshold"
+    value = "5"
+  }
+  set {
+    name  = "langfuse.web.readinessProbe.initialDelaySeconds"
+    value = "120"
+  }
+  set {
+    name  = "langfuse.web.readinessProbe.periodSeconds"
+    value = "30"
+  }
+  set {
+    name  = "langfuse.web.readinessProbe.timeoutSeconds"
+    value = "30"
+  }
+  set {
+    name  = "langfuse.web.readinessProbe.failureThreshold"
+    value = "5"
+  }
+
   depends_on = [
     kubernetes_secret.langfuse,
     google_service_account.langfuse,

@@ -22,3 +22,17 @@ cache_memory_size_gb = 1
 # Langfuse Helm Chart
 langfuse_chart_version = "1.5.14"
 
+# GKE Control Plane Access — add your public IP(s) here (run: gcloud compute addresses list or curl -s ifconfig.me)
+master_authorized_networks = [
+  # Jamf Trust VPN egress IPs — US West
+  { cidr_block = "52.35.167.128/32", display_name = "jamf-us-west-1" },
+  { cidr_block = "54.68.255.75/32",  display_name = "jamf-us-west-2" },
+  { cidr_block = "54.186.76.74/32",  display_name = "jamf-us-west-3" },
+  # Jamf Trust VPN egress IPs — US East
+  { cidr_block = "54.209.62.128/32", display_name = "jamf-us-east-1" },
+  { cidr_block = "52.200.243.25/32", display_name = "jamf-us-east-2" },
+  { cidr_block = "54.165.60.253/32", display_name = "jamf-us-east-3" },
+  # Individual IPs (Jamf Trust is split-tunnel — add each developer's ISP IP as needed)
+  { cidr_block = "YOUR_IP/32", display_name = "local" },
+]
+
