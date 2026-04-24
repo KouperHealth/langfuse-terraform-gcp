@@ -88,6 +88,7 @@ langfuse:
     className: gce  # Ignored in GCP but required from K8s
     annotations:
       kubernetes.io/ingress.class: gce
+      kubernetes.io/ingress.global-static-ip-name: ${google_compute_global_address.ingress.name}
       ingress.gcp.kubernetes.io/pre-shared-cert: ${var.name}
       networking.gke.io/v1beta1.FrontendConfig: https-redirect
     hosts:
@@ -180,10 +181,44 @@ resource "helm_release" "langfuse" {
     local.encryption_values,
   ], var.additional_helm_values)
 
+  # Increase probe tolerances — Next.js needs time to fully start before serving health checks
+  set {
+    name  = "langfuse.web.livenessProbe.initialDelaySeconds"
+    value = "120"
+  }
+  set {
+    name  = "langfuse.web.livenessProbe.periodSeconds"
+    value = "30"
+  }
+  set {
+    name  = "langfuse.web.livenessProbe.timeoutSeconds"
+    value = "30"
+  }
+  set {
+    name  = "langfuse.web.livenessProbe.failureThreshold"
+    value = "5"
+  }
+  set {
+    name  = "langfuse.web.readinessProbe.initialDelaySeconds"
+    value = "120"
+  }
+  set {
+    name  = "langfuse.web.readinessProbe.periodSeconds"
+    value = "30"
+  }
+  set {
+    name  = "langfuse.web.readinessProbe.timeoutSeconds"
+    value = "30"
+  }
+  set {
+    name  = "langfuse.web.readinessProbe.failureThreshold"
+    value = "5"
+  }
+
   depends_on = [
     kubernetes_secret.langfuse,
     google_service_account.langfuse,
   ]
 
-  timeout = 1800 # Increase timeout to 15 minutes
+  timeout = 3600 # 30 minutes - ClickHouse deployment can take time
 }

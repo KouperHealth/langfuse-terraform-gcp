@@ -13,6 +13,9 @@ This module aims to provide a production-ready, secure, and scalable deployment 
 
 ## Usage
 
+> **📖 For a complete deployment walkthrough, see [DEPLOYMENT.md](./DEPLOYMENT.md).**  
+> The deployment guide includes kubectl setup, troubleshooting tips, secret management, and operational best practices. The instructions below show standard Terraform module usage.
+
 1. Enable required APIs on your Google Cloud Account:
 - Certificate Manager API
 - Cloud DNS API

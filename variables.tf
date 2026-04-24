@@ -1,3 +1,14 @@
+variable "project_id" {
+  description = "GCP Project ID"
+  type        = string
+}
+
+variable "region" {
+  description = "GCP region"
+  type        = string
+  default     = "us-central1"
+}
+
 variable "name" {
   description = "Name to use for or prefix resources with"
   type        = string
@@ -116,6 +127,15 @@ variable "additional_env" {
     ])
     error_message = "Each environment variable must have either 'value' or 'valueFrom' specified, but not both."
   }
+}
+
+variable "master_authorized_networks" {
+  description = "List of CIDR blocks authorized to access the Kubernetes master endpoint. An empty list blocks all public access. Include your VPC subnet CIDR to allow in-cluster access."
+  type = list(object({
+    cidr_block   = string
+    display_name = optional(string, "")
+  }))
+  default = []
 }
 
 variable "create_dns_zone" {
