@@ -165,6 +165,7 @@ resource "kubernetes_secret" "langfuse" {
     "nextauth-secret"     = random_bytes.nextauth_secret.base64
     "clickhouse-password" = random_password.clickhouse_password.result
     "encryption_key"      = var.use_encryption_key ? random_bytes.encryption_key[0].hex : ""
+    "ee-license-key"      = data.google_secret_manager_secret_version.ee_license_key.secret_data
   }
 }
 
