@@ -48,6 +48,5 @@ master_authorized_networks = [
   { cidr_block = "52.200.243.25/32", display_name = "jamf-us-east-2" },
   { cidr_block = "54.165.60.253/32", display_name = "jamf-us-east-3" },
   # Individual IPs (Jamf Trust is split-tunnel — add each developer's ISP IP as needed)
-  { cidr_block = "YOUR_IP/32", display_name = "local" },
+  # { cidr_block = "136.56.29.170/32", display_name = "andrew" },
 ]
-

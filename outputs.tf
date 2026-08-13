@@ -25,6 +25,11 @@ output "ee_key_secret_name" {
   value       = google_secret_manager_secret.ee_key.secret_id
 }
 
+output "ee_license_key_secret_name" {
+  description = "Name of the GCP Secret Manager secret containing the Langfuse EE license key — push the real key with: gcloud secrets versions add <this-value> --data-file=-"
+  value       = google_secret_manager_secret.ee_license_key.secret_id
+}
+
 output "ingress_ip" {
   description = "Static IP address for the ingress load balancer - configure your DNS A record to point to this IP"
   value       = google_compute_global_address.ingress.address
